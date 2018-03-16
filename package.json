@@ -1,0 +1,33 @@
+{
+  "name": "turbot-errors",
+  "author": "Turbot HQ, Inc",
+  "version": "5.0.0-alpha.1",
+  "private": true,
+  "main": "index.js",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "eslintConfig": {
+    "extends": ["plugin:prettier/recommended", "eslint:recommended"],
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 8
+    }
+  },
+  "prettier": {
+    "printWidth": 120
+  },
+  "devDependencies": {
+    "eslint": "4.18.2",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-prettier": "2.6.0",
+    "prettier": "1.11.1"
+  },
+  "dependencies": {
+    "lodash": "4.17.5",
+    "turbot-sdk": "git+ssh://git@github.com:turbotio/turbot-responses.git"
+  }
+}
