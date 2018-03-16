@@ -77,4 +77,24 @@ describe("turbot-errors", function() {
       });
     });
   });
+  describe("is{Type}", function() {
+    let e404 = new errors.notFound();
+    let e409 = new errors.conflict();
+    describe("Not Found", function() {
+      it("isNotFound is true", function() {
+        assert(errors.isNotFound(e404));
+      });
+      it("isConflict is false", function() {
+        assert(!errors.isConflict(e404));
+      });
+    });
+    describe("Conflict", function() {
+      it("isNotFound is false", function() {
+        assert(!errors.isNotFound(e409));
+      });
+      it("isConflict is true", function() {
+        assert(errors.isConflict(e409));
+      });
+    });
+  });
 });
