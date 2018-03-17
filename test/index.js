@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const assert = require("chai").assert;
-const errors = require("../index.js");
+const errors = require("..");
 
 const TESTS = [
   { type: "notFound", code: 404, message: "Not Found" },
