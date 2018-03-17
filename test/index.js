@@ -77,6 +77,20 @@ describe("turbot-errors", function() {
       });
     });
   });
+  describe("Wrap error", function() {
+    let obj, e;
+    try {
+      obj = JSON.parse('{ i: { am: [ "invalid", "json" ], missing: { a: "brace" } }');
+    } catch (thrownError) {
+      e = errors.internal(thrownError);
+    }
+    it("isInternal is true", function() {
+      assert(errors.isInternal(e));
+    });
+    it("has a stack trace", function() {
+      assert.isString(e.stack);
+    });
+  });
   describe("is{Type}", function() {
     let e404 = new errors.notFound();
     let e409 = new errors.conflict();
