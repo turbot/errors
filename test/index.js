@@ -12,7 +12,10 @@ describe("turbot-errors", function() {
     TESTS.forEach(test => {
       describe(test.type, function() {
         describe("basic", function() {
-          let e = errors[test.type]();
+          var e;
+          before(function() {
+            e = errors[test.type]();
+          });
           it("has correct message", function() {
             assert.equal(e.message, test.message);
           });
@@ -24,8 +27,11 @@ describe("turbot-errors", function() {
           });
         });
         describe("with reason", function() {
-          let reason = "my great reason";
-          let e = errors[test.type](reason);
+          var reason, e;
+          before(function() {
+            reason = "my great reason";
+            e = errors[test.type](reason);
+          });
           it("includes correct message", function() {
             assert.include(e.message, test.message);
           });
@@ -40,8 +46,11 @@ describe("turbot-errors", function() {
           });
         });
         describe("with extra data", function() {
-          let data = { one: "my", two: { extra: "data" } };
-          let e = errors[test.type](data);
+          var data, e;
+          before(function() {
+            data = { one: "my", two: { extra: "data" } };
+            e = errors[test.type](data);
+          });
           it("has correct message", function() {
             assert.equal(e.message, test.message);
           });
@@ -62,8 +71,11 @@ describe("turbot-errors", function() {
           });
         });
         describe("with replacement message", function() {
-          let msg = "My message";
-          let e = errors[test.type]({ message: msg });
+          var msg, e;
+          before(function() {
+            msg = "My message";
+            e = errors[test.type]({ message: msg });
+          });
           it("has correct message", function() {
             assert.equal(e.message, msg);
           });
@@ -80,12 +92,14 @@ describe("turbot-errors", function() {
 
   describe("Wrap error", function() {
     describe("Raw", function() {
-      let obj, e;
-      try {
-        obj = JSON.parse('{ "i": { "am": [ "invalid", "json" ], "missing": { "a": "brace" } }');
-      } catch (thrownError) {
-        e = errors.internal(thrownError);
-      }
+      var obj, e;
+      before(function() {
+        try {
+          obj = JSON.parse('{ "i": { "am": [ "invalid", "json" ], "missing": { "a": "brace" } }');
+        } catch (thrownError) {
+          e = errors.internal(thrownError);
+        }
+      });
       it("isInternal is true", function() {
         assert(errors.isInternal(e));
       });
@@ -102,11 +116,13 @@ describe("turbot-errors", function() {
     describe("With reason", function() {
       let obj, e;
       let reason = "I know there is a reason!";
-      try {
-        obj = JSON.parse('{ "i": { "am": [ "invalid", "json" ], "missing": { "a": "brace" } }');
-      } catch (thrownError) {
-        e = errors.internal(reason, thrownError);
-      }
+      before(function() {
+        try {
+          obj = JSON.parse('{ "i": { "am": [ "invalid", "json" ], "missing": { "a": "brace" } }');
+        } catch (thrownError) {
+          e = errors.internal(reason, thrownError);
+        }
+      });
       it("includes original message", function() {
         assert.include(e.message, "Unexpected end");
       });
@@ -117,8 +133,11 @@ describe("turbot-errors", function() {
   });
 
   describe("is{Type}", function() {
-    let e404 = errors.notFound();
-    let e409 = errors.conflict();
+    var e404, e409;
+    before(function() {
+      e404 = errors.notFound();
+      e409 = errors.conflict();
+    });
     describe("Not Found", function() {
       it("isNotFound is true", function() {
         assert(errors.isNotFound(e404));
