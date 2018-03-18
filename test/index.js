@@ -12,7 +12,7 @@ describe("turbot-errors", function() {
     TESTS.forEach(test => {
       describe(test.type, function() {
         describe("basic", function() {
-          let e = new errors[test.type]();
+          let e = errors[test.type]();
           it("has correct message", function() {
             assert.equal(e.message, test.message);
           });
@@ -25,7 +25,7 @@ describe("turbot-errors", function() {
         });
         describe("with reason", function() {
           let reason = "my great reason";
-          let e = new errors[test.type](reason);
+          let e = errors[test.type](reason);
           it("has correct message", function() {
             assert.equal(e.message, test.message);
           });
@@ -41,7 +41,7 @@ describe("turbot-errors", function() {
         });
         describe("with extra data", function() {
           let data = { one: "my", two: { extra: "data" } };
-          let e = new errors[test.type](data);
+          let e = errors[test.type](data);
           it("has correct message", function() {
             assert.equal(e.message, test.message);
           });
@@ -63,7 +63,7 @@ describe("turbot-errors", function() {
         });
         describe("with replacement message", function() {
           let msg = "My message";
-          let e = new errors[test.type]({ message: msg });
+          let e = errors[test.type]({ message: msg });
           it("has correct message", function() {
             assert.equal(e.message, msg);
           });
@@ -77,6 +77,7 @@ describe("turbot-errors", function() {
       });
     });
   });
+
   describe("Wrap error", function() {
     let obj, e;
     try {
@@ -90,10 +91,14 @@ describe("turbot-errors", function() {
     it("has a stack trace", function() {
       assert.isString(e.stack);
     });
+    it("has original stack trace", function() {
+      assert.include(e.stack, "JSON.parse");
+    });
   });
+
   describe("is{Type}", function() {
-    let e404 = new errors.notFound();
-    let e409 = new errors.conflict();
+    let e404 = errors.notFound();
+    let e409 = errors.conflict();
     describe("Not Found", function() {
       it("isNotFound is true", function() {
         assert(errors.isNotFound(e404));
