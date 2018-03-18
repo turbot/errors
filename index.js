@@ -68,7 +68,11 @@ for (let type in responses) {
       }
       // Reason string is always used if provided.
       if (reason) {
-        err.reason = reason;
+        if (err.message) {
+          err.message += ": " + reason;
+        } else {
+          err.message = reason;
+        }
       }
       return err;
     };
