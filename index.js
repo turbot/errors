@@ -66,7 +66,7 @@ for (let type in responses) {
       for (let k in data) {
         err[k] = data[k];
       }
-      // Reason string is always used if provided.
+      // Reason is added to the message if provided.
       if (reason) {
         if (err.message) {
           err.message += ": " + reason;

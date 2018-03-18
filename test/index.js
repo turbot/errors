@@ -26,17 +26,17 @@ describe("turbot-errors", function() {
         describe("with reason", function() {
           let reason = "my great reason";
           let e = errors[test.type](reason);
-          it("has correct message", function() {
-            assert.equal(e.message, test.message);
+          it("includes correct message", function() {
+            assert.include(e.message, test.message);
+          });
+          it("includes reason in message", function() {
+            assert.include(e.message, reason);
           });
           it("has correct code", function() {
             assert.equal(e.code, test.code);
           });
-          it("has correct reason", function() {
-            assert.equal(e.reason, reason);
-          });
-          it("has only message, reason and code fields", function() {
-            assert.hasAllKeys(e, ["code", "message", "reason"]);
+          it("has only message and code fields", function() {
+            assert.hasAllKeys(e, ["code", "message"]);
           });
         });
         describe("with extra data", function() {
@@ -79,20 +79,40 @@ describe("turbot-errors", function() {
   });
 
   describe("Wrap error", function() {
-    let obj, e;
-    try {
-      obj = JSON.parse('{ i: { am: [ "invalid", "json" ], missing: { a: "brace" } }');
-    } catch (thrownError) {
-      e = errors.internal(thrownError);
-    }
-    it("isInternal is true", function() {
-      assert(errors.isInternal(e));
+    describe("Raw", function() {
+      let obj, e;
+      try {
+        obj = JSON.parse('{ "i": { "am": [ "invalid", "json" ], "missing": { "a": "brace" } }');
+      } catch (thrownError) {
+        e = errors.internal(thrownError);
+      }
+      it("isInternal is true", function() {
+        assert(errors.isInternal(e));
+      });
+      it("has original error message", function() {
+        assert.include(e.message, "Unexpected end");
+      });
+      it("has a stack trace", function() {
+        assert.isString(e.stack);
+      });
+      it("has original stack trace", function() {
+        assert.include(e.stack, "JSON.parse");
+      });
     });
-    it("has a stack trace", function() {
-      assert.isString(e.stack);
-    });
-    it("has original stack trace", function() {
-      assert.include(e.stack, "JSON.parse");
+    describe("With reason", function() {
+      let obj, e;
+      let reason = "I know there is a reason!";
+      try {
+        obj = JSON.parse('{ "i": { "am": [ "invalid", "json" ], "missing": { "a": "brace" } }');
+      } catch (thrownError) {
+        e = errors.internal(reason, thrownError);
+      }
+      it("includes original message", function() {
+        assert.include(e.message, "Unexpected end");
+      });
+      it("includes reason in message", function() {
+        assert.include(e.message, reason);
+      });
     });
   });
 
