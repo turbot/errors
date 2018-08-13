@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const responses = require("turbot-responses");
+const responses = require("@turbot/responses");
 
 // Use this function to wrap your log objects, ensuring that real errors
 // will not break with console.log / JSON / etc.
@@ -79,7 +79,7 @@ for (let type in responses) {
 
     // Capitalize type per http://stackoverflow.com/questions/1026069/capitalize-the-first-letter-of-string-in-javascript
     // Do not use utils as that creates a cyclic dependency on includes
-    let isName = "is" + type[0].toUpperCase() + type.slice(1);
+    const isName = "is" + type[0].toUpperCase() + type.slice(1);
     exports[isName] = err => {
       if (!err) {
         return false;

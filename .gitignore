@@ -1,5 +1,13 @@
-.*.swp
 .*.swo
+.*.swp
 .DS_Store
 .idea
-node_modules/*
+.nyc_output
+.serverless
+.swo
+.swp
+.terraform
+__pycache__
+dist
+lerna-debug.log
+node_modules
