@@ -44,7 +44,7 @@
     "prettier": "1.11.1"
   },
   "dependencies": {
-    "@turbot/responses": "git+ssh://git@github.com:turbotio/responses.git",
+    "@turbot/responses": "git+ssh://git@github.com:turbotio/responses.git#v5.0.0-alpha.1",
     "lodash.omit": "4.5.0"
   }
 }
