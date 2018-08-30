@@ -1,0 +1,9 @@
+steps:
+  - name: "gcr.io/cloud-builders/git"
+    args: ["clone", "git@github.com:turbotio/errors.git"]
+  - name: "gcr.io/cloud-builders/npm"
+    entrypoint: "node"
+    args: ["install"]
+  - name: "gcr.io/cloud-builders/npm"
+    entrypoint: "node"
+    args: ["test"]
