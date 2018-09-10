@@ -5,8 +5,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "npx nyc npx mocha",
-    "fast-test": "npx mocha"
+    "coverage": "npx nyc npm test",
+    "test": "npx mocha"
   },
   "devDependencies": {
     "chai": "4.1.2",
