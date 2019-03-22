@@ -1,7 +1,7 @@
 {
   "name": "@turbot/errors",
   "author": "Turbot HQ, Inc",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.0-beta.1",
   "license": "SEE LICENSE IN LICENSE",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "prettier": "1.14.2"
   },
   "dependencies": {
-    "@turbot/responses": "git+ssh://git@github.com:turbotio/responses.git",
+    "@turbot/responses": "5.0.0-beta.1",
     "lodash.omit": "4.5.0"
   }
 }
