@@ -1,9 +1,14 @@
 {
   "name": "@turbot/errors",
   "author": "Turbot HQ, Inc",
-  "version": "5.0.0-beta.1",
+  "version": "5.0.0",
+  "description": "Turbot Responses Library.",
   "license": "SEE LICENSE IN LICENSE",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/turbot/errors.git"
+  },
   "scripts": {
     "coverage": "npx nyc npm test",
     "test": "npx mocha"
@@ -14,12 +19,12 @@
     "eslint-config-prettier": "6.0.0",
     "eslint-plugin-prettier": "3.1.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.5.0",
-    "mocha": "6.1.4",
+    "mocha": "5.2.0",
     "nyc": "14.1.1",
     "prettier": "1.18.2"
   },
   "dependencies": {
-    "@turbot/responses": "5.0.0-beta.1",
+    "@turbot/responses": "5.0.0",
     "lodash.omit": "4.5.0"
   }
 }
