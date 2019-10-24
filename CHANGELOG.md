@@ -2,6 +2,11 @@
 
 # Release History
 
+## 5.0.3 [2019-10-24]
+
+- Added: flag to indicate error object is a Turbot error.
+- Added: warning not to wrap Turbot errors.
+
 ## 5.0.2 [2019-08-13]
 
 - Fixed: package version.
