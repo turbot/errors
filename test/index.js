@@ -22,8 +22,8 @@ describe("turbot-errors", function() {
           it("has correct code", function() {
             assert.equal(e.code, test.code);
           });
-          it("has only message and code fields", function() {
-            assert.hasAllKeys(e, ["code", "message"]);
+          it("has only message and code fields (and sometimes turbotError)", function() {
+            assert.hasAllKeys(e, ["code", "message", "turbotError"]);
           });
         });
         describe("with reason", function() {
@@ -41,8 +41,8 @@ describe("turbot-errors", function() {
           it("has correct code", function() {
             assert.equal(e.code, test.code);
           });
-          it("has only message and code fields", function() {
-            assert.hasAllKeys(e, ["code", "message"]);
+          it("has only message and code fields (and sometimes turbotError)", function() {
+            assert.hasAllKeys(e, ["code", "message", "turbotError"]);
           });
         });
         describe("with extra data", function() {
@@ -58,14 +58,14 @@ describe("turbot-errors", function() {
             assert.equal(e.code, test.code);
           });
           it("has correct data mixed in", function() {
-            assert.deepEqual(_.omit(e, "code", "message"), data);
+            assert.deepEqual(_.omit(e, "code", "message", "turbotError"), data);
           });
           it("has only message, code and <data> fields", function() {
             assert.hasAllKeys(
               e,
               _.chain(data)
                 .keys()
-                .union(["code", "message"])
+                .union(["code", "message", "turbotError"])
                 .value()
             );
           });
@@ -82,8 +82,8 @@ describe("turbot-errors", function() {
           it("has correct code", function() {
             assert.equal(e.code, test.code);
           });
-          it("has only message and code fields", function() {
-            assert.hasAllKeys(e, ["code", "message"]);
+          it("has only message and code fields (and sometimes turbotError)", function() {
+            assert.hasAllKeys(e, ["code", "message", "turbotError"]);
           });
         });
       });
@@ -153,6 +153,44 @@ describe("turbot-errors", function() {
       it("isConflict is true", function() {
         assert(errors.isConflict(e409));
       });
+    });
+  });
+
+  describe("nested error", function() {
+    it("not nested error", function() {
+      const err = errors.conflict("There is a conflict", { err: "nested string" });
+
+      assert.equal(err.message, "Conflict: There is a conflict");
+    });
+
+    it("nested error #1 print warning message", function() {
+      const err = errors.conflict("There is a conflict", { err: "nested string" });
+      const nested = errors.internal("There is an internal error", { error: err });
+
+      assert.equal(
+        nested.message,
+        "(warning: please do not nest Turbot Error) Internal Error: There is an internal error"
+      );
+    });
+
+    it("nested error #2 print warning message", function() {
+      const err = errors.conflict("There is a conflict", { err: "nested string" });
+      const nested = errors.internal("There is an internal error", { err: err });
+
+      assert.equal(
+        nested.message,
+        "(warning: please do not nest Turbot Error) Internal Error: There is an internal error"
+      );
+    });
+
+    it("nested error (not wrapped into an object) print warning message", function() {
+      const err = errors.conflict("There is a conflict", { err: "nested string" });
+      const nested = errors.internal("There is an internal error", err);
+
+      assert.equal(
+        nested.message,
+        "(warning: please do not nest Turbot Error) Conflict: There is a conflict: There is an internal error"
+      );
     });
   });
 });

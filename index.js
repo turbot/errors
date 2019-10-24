@@ -47,13 +47,28 @@ for (let type in responses) {
         reason = null;
       }
       let err;
+      let warningWrap = false;
       if (data instanceof Error) {
+        if (data.turbotError) {
+          warningWrap = true;
+        }
         err = data;
         // Empty the data now that we have already pulled it into the error object.
         data = {};
       } else {
+        // We commonly wrap incoming error in { error: err } or sometimes { err: err },
+        // check both of the most common permutation
+        if (_.get(data, "err.turbotError") || _.get(data, "error.turbotError")) {
+          warningWrap = true;
+        }
         err = new Error();
       }
+
+      // flag that this error object is now wrapped by Turbot,
+      // i.e. someone is using errors.badRequest()  where errors = '@turbot/errors'
+      // we want to prevent nested errors
+      err.turbotError = true;
+
       // Our order of preference is:
       // 1. Custom data for this error.
       // 2. Information in the Error object.
@@ -73,6 +88,10 @@ for (let type in responses) {
         } else {
           err.message = reason;
         }
+      }
+
+      if (warningWrap) {
+        err.message = "(warning: please do not nest Turbot Error) " + err.message;
       }
       return err;
     };
