@@ -1,7 +1,7 @@
 {
   "name": "@turbot/errors",
   "author": "Turbot HQ, Inc",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "description": "Turbot Responses Library.",
   "license": "SEE LICENSE IN LICENSE",
   "main": "index.js",
