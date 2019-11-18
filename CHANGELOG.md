@@ -2,6 +2,10 @@
 
 # Release History
 
+## 5.0.4 [2019-11-18]
+
+- Updated: npm dependencies as suggested by npm audit.
+
 ## 5.0.3 [2019-10-24]
 
 - Added: flag to indicate error object is a Turbot error.
