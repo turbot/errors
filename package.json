@@ -1,9 +1,9 @@
 {
   "name": "@turbot/errors",
   "author": "Turbot HQ, Inc",
-  "version": "5.0.4",
-  "description": "Turbot Responses Library.",
-  "license": "SEE LICENSE IN LICENSE",
+  "version": "5.0.5",
+  "description": "Turbot errors library, establishing common codes and messages.",
+  "license": "Apache-2.0",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
     "eslint-plugin-you-dont-need-lodash-underscore": "6.8.0",
     "mocha": "5.2.0",
     "nyc": "14.1.1",
-    "prettier": "1.18.2"
+    "prettier": "1.19.1"
   },
   "dependencies": {
     "@turbot/responses": "5.0.0",
