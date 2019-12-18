@@ -24,7 +24,7 @@
     "prettier": "1.19.1"
   },
   "dependencies": {
-    "@turbot/responses": "5.0.0",
+    "@turbot/responses": "5.0.1",
     "lodash.omit": "4.5.0"
   }
 }
