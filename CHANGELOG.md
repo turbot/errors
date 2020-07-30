@@ -1,3 +1,8 @@
+## 5.1.0 [2019-07-30]
+
+- Updated: @turbot/responses dependency to 5.1.0. #14.
+- Updated: development dependencies.
+
 ## 5.0.5 [2019-12-16]
 
 - Changed: LICENSE to Apache 2.0.
