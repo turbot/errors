@@ -1,4 +1,9 @@
-## 5.3.0 [2021-06-07]
+## 5.3.0 [2023-11-20]
+
+- Updated: @turbot/responses dependency to 5.3.0. #25.
+- Updated: development dependencies.
+
+## 5.2.0 [2021-06-07]
 
 - Updated: @turbot/responses dependency to 5.2.0. #19.
 - Updated: development dependencies.
