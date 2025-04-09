@@ -1,0 +1,25 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "plugin:prettier/recommended",
+    "eslint:recommended",
+    "plugin:you-dont-need-lodash-underscore/compatible"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "rules": {
+    "you-dont-need-lodash-underscore/trim": "off",
+    "you-dont-need-lodash-underscore/defaults": "off",
+    "no-console": "off",
+    "you-dont-need-lodash-underscore/is-nil": "off",
+    "you-dont-need-lodash-underscore/get": "off",
+    "prefer-const": "error",
+    "no-var": "error"
+  }
+}

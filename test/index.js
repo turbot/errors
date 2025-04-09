@@ -61,13 +61,7 @@ describe("turbot-errors", function() {
             assert.deepEqual(_.omit(e, "code", "message", "turbotError"), data);
           });
           it("has only message, code and <data> fields", function() {
-            assert.hasAllKeys(
-              e,
-              _.chain(data)
-                .keys()
-                .union(["code", "message", "turbotError"])
-                .value()
-            );
+            assert.hasAllKeys(e, _.chain(data).keys().union(["code", "message", "turbotError"]).value());
           });
         });
         describe("with replacement message", function() {
@@ -97,14 +91,17 @@ describe("turbot-errors", function() {
         try {
           obj = JSON.parse('{ "i": { "am": [ "invalid", "json" ], "missing": { "a": "brace" } }');
         } catch (thrownError) {
+          //  console.log(thrownError);
+          // current error: Expected ',' or '}' after property value in JSON at position 67
           e = errors.internal(thrownError);
         }
       });
       it("isInternal is true", function() {
         assert(errors.isInternal(e));
       });
-      it("has original error message", function() {
-        assert.include(e.message, "Unexpected end");
+      it("has original error message", function () {
+        console.log(e.message);
+        assert.include(e.message, "Expected ',' or '}'");
       });
       it("has a stack trace", function() {
         assert.isString(e.stack);
@@ -120,11 +117,12 @@ describe("turbot-errors", function() {
         try {
           obj = JSON.parse('{ "i": { "am": [ "invalid", "json" ], "missing": { "a": "brace" } }');
         } catch (thrownError) {
+          // current error: Expected ',' or '}' after property value in JSON at position 67
           e = errors.internal(reason, thrownError);
         }
       });
       it("includes original message", function() {
-        assert.include(e.message, "Unexpected end");
+        assert.include(e.message, "Expected ',' or '}'");
       });
       it("includes reason in message", function() {
         assert.include(e.message, reason);
